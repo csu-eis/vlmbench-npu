@@ -29,6 +29,16 @@ interface Props {
 
 const { title, authors, conference, notes, links } = Astro.props;
 
+// Unique institutions in first-appearance order, used to derive the
+// superscript number shown next to each author's name (DeepEn-style).
+const institutions = [
+  ...new Set(
+    authors
+      .map((author) => author.institution)
+      .filter((institution): institution is string => Boolean(institution)),
+  ),
+];
+
 const hasBackground = Astro.slots.has("background");
 ---
 
@@ -56,27 +66,44 @@ const hasBackground = Astro.slots.has("background");
     ]}
   >
     <h1 class="my-0 text-5xl font-medium">{title}</h1>
-    <div class="flex flex-row flex-wrap justify-center gap-x-8 gap-y-4">
+    <div class="not-prose flex flex-row flex-wrap justify-center gap-x-1.5 gap-y-2 text-xl leading-relaxed">
       {
-        authors.map((author) => (
-          <div class="flex flex-col items-center text-center">
-            <div class="flex flex-row text-xl">
+        authors.map((author, index) => {
+          const institutionIndex = author.institution
+            ? institutions.indexOf(author.institution)
+            : -1;
+          return (
+            <span class="whitespace-nowrap">
               {author.url ? (
-                <a class:list={[hasBackground && "not-prose text-blue-200 hover:text-blue-100 underline decoration-dashed underline-offset-4 hover:decoration-solid"]} href={author.url}>{author.name}</a>
+                <a
+                  class:list={[hasBackground ? "text-blue-200 hover:text-blue-100" : "text-blue-600 hover:text-blue-900", "underline decoration-dashed underline-offset-4 hover:decoration-solid"]}
+                  href={author.url}
+                >
+                  {author.name}
+                </a>
               ) : (
                 author.name
               )}
-              {author.notes && (
-                <sup class="text-xl">
-                  {author.notes.map(
-                    (note, index, array) =>
-                      note + (index < array.length - 1 ? "," : ""),
-                  )}
+              {(institutionIndex >= 0 || author.notes) && (
+                <sup class="text-base">
+                  {institutionIndex >= 0 && institutionIndex + 1}
+                  {author.notes?.join(",")}
                 </sup>
               )}
-            </div>
-            {author.institution && <div>{author.institution}</div>}
-          </div>
+              {index < authors.length - 1 && <span>,</span>}
+            </span>
+          );
+        })
+      }
+    </div>
+    <div class="not-prose flex flex-row flex-wrap justify-center gap-x-1.5 gap-y-1 text-lg leading-relaxed">
+      {
+        institutions.map((institution, index) => (
+          <span class="whitespace-nowrap">
+            <sup class="text-sm">{index + 1}</sup>
+            {institution}
+            {index < institutions.length - 1 && <span>,</span>}
+          </span>
         ))
       }
     </div>

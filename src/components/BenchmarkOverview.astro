@@ -1,0 +1,339 @@
+---
+import { Image } from "astro:assets";
+import infrastructure from "../assets/infrastructure.png";
+---
+
+<section
+  class="overview full-bleed not-prose"
+  aria-labelledby="benchmark-overview-title"
+>
+  <div class="overview-inner">
+    <h2 id="benchmark-overview-title">Benchmark at a glance</h2>
+    <p class="overview-summary">
+      6 vision-language models · 3 edge platforms · 10 multimodal benchmarks
+    </p>
+    <benchmark-layout class="overview-grid">
+      <figure class="overview-panel">
+        <div class="overview-table">
+          <table>
+            <thead>
+              <tr
+                ><th>Model</th><th>Architecture</th><th>Encoder (M)</th><th
+                  >Backbone (B)</th
+                ><th>Attention</th><th>Preprocessing</th></tr
+              >
+            </thead>
+            <tbody>
+              <tr
+                ><td>Qwen3.5-2B</td><td>Encoder-based</td><td>331.417</td><td
+                  >1.943</td
+                ><td>Full Attention ×6 + Linear Attention ×18</td><td
+                  >Dynamic</td
+                ></tr
+              >
+              <tr
+                ><td>Gemma4-E2B</td><td>Encoder-based</td><td>168.545</td><td
+                  >4.647</td
+                ><td>Full Attention ×35</td><td>Fixed</td></tr
+              >
+              <tr
+                ><td>InternVL3.5-1B</td><td>Encoder-based</td><td>309.265</td
+                ><td>0.752</td><td>Full Attention ×28</td><td>Tile-based</td
+                ></tr
+              >
+              <tr
+                ><td>SmolVLM2-500M</td><td>Encoder-based</td><td>98.230</td><td
+                  >0.409</td
+                ><td>Full Attention ×32</td><td>Fixed</td></tr
+              >
+              <tr
+                ><td>NEO1.5-2B</td><td>Encoder-free</td><td>9.178</td><td
+                  >2.887</td
+                ><td>Full Attention ×40</td><td>Dynamic</td></tr
+              >
+              <tr
+                ><td>Mono-InternVL-2B</td><td>Encoder-free</td><td>14.249</td
+                ><td>3.097</td><td>Full Attention ×24</td><td>Tile-based</td
+                ></tr
+              >
+            </tbody>
+          </table>
+        </div>
+        <figcaption>
+          <strong>Table 1</strong> — The six VLMs under test. Preprocessing categories
+          follow the default huggingface/transformers configuration for square inputs.
+        </figcaption>
+      </figure>
+
+      <figure class="overview-panel">
+        <div class="overview-image">
+          <Image
+            src={infrastructure}
+            alt="Measurement pipeline: the host fetches models and datasets, deploys them via SSH/ADB, and collects inference outputs and runtime measurements"
+            format="avif"
+            widths={[480, 720, 960, 1189]}
+            sizes="(min-width: 1440px) 30vw, (min-width: 1000px) 952px, calc(100vw - 48px)"
+          />
+        </div>
+        <figcaption>
+          <strong>Figure 1</strong> — Measurement infrastructure connecting models,
+          benchmarks, and edge devices.
+        </figcaption>
+      </figure>
+
+      <figure class="overview-panel">
+        <div class="overview-table">
+          <table>
+            <thead>
+              <tr
+                ><th></th><th>OnePlus 13T</th><th>Rhino Pi-X1</th><th
+                  >Orange Pi 5 Plus</th
+                ></tr
+              >
+            </thead>
+            <tbody>
+              <tr
+                ><td>SoC</td><td>Qualcomm SM8750</td><td>Qualcomm QCS8550</td
+                ><td>Rockchip RK3588</td></tr
+              >
+              <tr
+                ><td>CPU</td><td>2×Oryon Prime + 6×Oryon Perf.</td><td
+                  >1×GoldPlus + 2×Gold + 3×Silver</td
+                ><td>4×A76 + 4×A55</td></tr
+              >
+              <tr
+                ><td>GPU</td><td>Adreno 830</td><td>Adreno 740</td><td
+                  >Mali-G610 MP4</td
+                ></tr
+              >
+              <tr
+                ><td>NPU</td><td
+                  >Hexagon HTP v79 (Q6 scalar + 6 HVX + 1 HMX), VTCM 8 MiB</td
+                ><td>Hexagon HTP v73 (Q6 scalar + 4 HVX + 1 HMX), VTCM 8 MiB</td
+                ><td>RKNPU (CNA + DPU + PPU)×3</td></tr
+              >
+              <tr><td>RAM</td><td>16 GB</td><td>16 GB</td><td>16 GB</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figcaption>
+          <strong>Table 2</strong> — Hardware used in the measurement. VTCM denotes
+          vector tightly coupled memory.
+        </figcaption>
+      </figure>
+    </benchmark-layout>
+  </div>
+</section>
+
+<style>
+  .overview {
+    padding: 3rem var(--minimum-inline-margin);
+  }
+
+  .overview-inner {
+    max-width: 112rem;
+    margin-inline: auto;
+  }
+
+  h2 {
+    margin: 0;
+    max-width: var(--maximum-text-width);
+    margin-inline: auto;
+    font-size: 1.6667em;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .overview-summary {
+    margin: 0.75rem 0 2rem;
+    max-width: var(--maximum-text-width);
+    margin-inline: auto;
+    color: var(--color-zinc-600);
+    font-size: 1rem;
+  }
+
+  .overview-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    max-width: 60rem;
+    margin-inline: auto;
+  }
+
+  .overview-panel {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .overview-table {
+    min-width: 0;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    text-align: left;
+    overflow-wrap: normal;
+  }
+
+  th,
+  td {
+    padding: 0.25rem 0.375rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-zinc-200);
+  }
+
+  th {
+    background: var(--color-zinc-100);
+    font-weight: 600;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 2px solid var(--color-zinc-300);
+  }
+
+  .overview-panel:first-child table {
+    min-width: 29rem;
+  }
+
+  .overview-panel:last-child table {
+    min-width: 24rem;
+  }
+
+  td:first-child {
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .overview-image {
+    display: grid;
+    place-items: center;
+    min-width: 0;
+  }
+
+  .overview-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+
+  figcaption {
+    margin: 0;
+    color: var(--color-zinc-600);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  figcaption strong {
+    color: var(--color-zinc-800);
+  }
+
+  @media (min-width: 90rem) {
+    .overview-grid {
+      /* The script measures compact tables and scales all three to one height. */
+      grid-template-columns:
+        minmax(0, var(--model-ratio, 2.4fr)) minmax(0, 2.05709343fr)
+        minmax(0, var(--hardware-ratio, 2fr));
+      grid-template-rows: var(--media-height, auto) auto;
+      column-gap: 1.5rem;
+      row-gap: 1rem;
+      max-width: none;
+    }
+
+    .overview-panel {
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+    }
+
+    .overview-table {
+      height: var(--media-height, auto);
+      overflow: visible;
+    }
+
+    .overview-panel:first-child table {
+      width: 560px;
+      min-width: 560px;
+      transform: scale(var(--model-scale, 1));
+      transform-origin: top left;
+    }
+
+    .overview-panel:last-child table {
+      width: 460px;
+      min-width: 460px;
+      transform: scale(var(--hardware-scale, 1));
+      transform-origin: top left;
+    }
+
+    .overview-image img {
+      width: 100%;
+      height: var(--media-height, auto);
+    }
+  }
+</style>
+
+<script>
+  class BenchmarkLayout extends HTMLElement {
+    private observer: ResizeObserver | undefined;
+
+    connectedCallback() {
+      const tables = this.querySelectorAll("table");
+      const image = this.querySelector("img");
+      if (tables.length !== 2 || !image) return;
+      const model = tables[0];
+      const hardware = tables[1];
+
+      const update = () => {
+        if (!window.matchMedia("(min-width: 90rem)").matches) return;
+        // Remove the previous scale to measure the natural, compact tables.
+        // Keep fractional pixels so the visible table/image edges match.
+        const modelScale =
+          Number(this.style.getPropertyValue("--model-scale")) || 1;
+        const hardwareScale =
+          Number(this.style.getPropertyValue("--hardware-scale")) || 1;
+        const modelBox = model.getBoundingClientRect();
+        const hardwareBox = hardware.getBoundingClientRect();
+        const modelHeight = modelBox.height / modelScale;
+        const hardwareHeight = hardwareBox.height / hardwareScale;
+        if (!modelHeight || !hardwareHeight) return;
+        const modelRatio = modelBox.width / modelBox.height;
+        const hardwareRatio = hardwareBox.width / hardwareBox.height;
+        const imageRatio = 1189 / 578;
+        const gap = parseFloat(getComputedStyle(this).columnGap);
+        const height =
+          (this.clientWidth - 2 * gap) /
+          (modelRatio + imageRatio + hardwareRatio);
+        this.style.setProperty("--model-ratio", `${modelRatio}fr`);
+        this.style.setProperty("--hardware-ratio", `${hardwareRatio}fr`);
+        this.style.setProperty("--media-height", `${height}px`);
+        this.style.setProperty("--model-scale", `${height / modelHeight}`);
+        this.style.setProperty(
+          "--hardware-scale",
+          `${height / hardwareHeight}`,
+        );
+      };
+
+      this.observer = new ResizeObserver(update);
+      this.observer.observe(this);
+      this.observer.observe(model);
+      this.observer.observe(hardware);
+      void document.fonts.ready.then(update);
+      update();
+    }
+
+    disconnectedCallback() {
+      this.observer?.disconnect();
+    }
+  }
+
+  customElements.define("benchmark-layout", BenchmarkLayout);
+</script>

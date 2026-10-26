@@ -31,19 +31,22 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/starwind/
 import { Comparison } from "./components/Comparison.tsx";
 
 import outside from "./assets/outside.mp4";
+import BenchmarkOverview from "./components/BenchmarkOverview.astro";
 import dogsDiffc from "./assets/dogs-diffc.png"
 import dogsTrue from "./assets/dogs-true.png"
 import dogsMsillm from "@/assets/dogs-msillm.jpg"
 
 <Header
   title="How Far Are We From On-Device VLM Inference? A Measurement Study on Edge NPUs"
-  conference="Anonymous Submission"
   authors={[
     { name: "Huan Yang", institution: "Central South University" },
     { name: "Shiqi Jiang", institution: "Microsoft Research" },
     { name: "Yu Mao", institution: "Central South University" },
     { name: "Chuanyue Xiong", institution: "Central South University" },
-    { name: "Deyu Zhang", institution: "Central South University" },
+    { name: "Deyu Zhang", institution: "Central South University", notes: ["†"] },
+  ]}
+  notes={[
+    { symbol: "†", text: "Corresponding author." },
   ]}
   links={[
     { name: "Code", url: "https://github.com/csu-eis/vlmbench-npu", icon: "ri:github-line" },
@@ -66,6 +69,8 @@ import dogsMsillm from "@/assets/dogs-msillm.jpg"
 Diverse optimizations spanning model architecture, inference runtime, and hardware acceleration have been proposed for on‑device vision‑language model (VLM) deployment on edge NPUs. Still, cross‑layer coordination of VLM execution on edge NPUs remains largely underexplored. This paper presents an empirical measurement study across six representative VLMs, three real‑world edge platforms, and ten multimodal benchmarks. Our evaluation drills down from end‑to‑end application‑level latency and thermal traces down to low‑level kernel‑scale execution behaviors, challenging several widely held community assumptions. First, softmax dominates attention costs; even lookup‑table‑based softmax optimizations cannot eliminate pipeline bubbles that severely underutilize NPU matrix units. Second, theoretical speedups from linear attention vanish under real‑NPU execution due to prohibitive tensor‑rearrangement overhead. Third, no hardware backend universally dominates autoregressive decoding: attention‑tensor‑shaped parallelism dictates NPU efficiency and shifts the CPU‑NPU performance balance. We further find task‑specific Sweet Resolutions for VLMs, which deliver meaningful accuracy gains at only modest latency overhead. Complementing these findings, we provide actionable cross‑layer recommendations for hardware architects, runtime developers, and model designers.
 
 </HighlightedSection>
+
+<BenchmarkOverview />
 
 ## Visuals
 

@@ -20,5 +20,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# local npm registry/mirror config (company-internal)
+.npmrc
+
 # jetbrains setting folder
 .idea/
