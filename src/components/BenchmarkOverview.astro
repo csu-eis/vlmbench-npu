@@ -13,7 +13,7 @@ import infrastructure from "../assets/infrastructure.png";
       6 vision-language models · 3 edge platforms · 10 multimodal benchmarks
     </p>
     <benchmark-layout class="overview-grid">
-      <figure class="overview-panel">
+      <figure id="table-1" class="overview-panel">
         <div class="overview-table">
           <table>
             <thead>
@@ -60,28 +60,38 @@ import infrastructure from "../assets/infrastructure.png";
           </table>
         </div>
         <figcaption>
-          <strong>Table 1</strong> — The six VLMs under test. Preprocessing categories
-          follow the default huggingface/transformers configuration for square inputs.
+          <a href="#table-1">Table 1</a> — The six VLMs under test. Preprocessing
+          categories follow the default huggingface/transformers configuration for
+          square inputs.
         </figcaption>
       </figure>
 
-      <figure class="overview-panel">
+      <figure id="figure-1" class="overview-panel">
         <div class="overview-image">
-          <Image
-            src={infrastructure}
-            alt="Measurement pipeline: the host fetches models and datasets, deploys them via SSH/ADB, and collects inference outputs and runtime measurements"
-            format="avif"
-            widths={[480, 720, 960, 1189]}
-            sizes="(min-width: 1440px) 30vw, (min-width: 1000px) 952px, calc(100vw - 48px)"
-          />
+          <a
+            class="figure-zoom"
+            href={infrastructure.src}
+            data-figure-zoom
+            data-figure-label="Figure 1"
+            aria-label="Enlarge Figure 1"
+            aria-haspopup="dialog"
+          >
+            <Image
+              src={infrastructure}
+              alt="Measurement pipeline: the host fetches models and datasets, deploys them via SSH/ADB, and collects inference outputs and runtime measurements"
+              format="avif"
+              widths={[480, 720, 960, 1189]}
+              sizes="(min-width: 1440px) 30vw, (min-width: 1000px) 952px, calc(100vw - 48px)"
+            />
+          </a>
         </div>
         <figcaption>
-          <strong>Figure 1</strong> — Measurement infrastructure connecting models,
-          benchmarks, and edge devices.
+          <a href="#figure-1">Figure 1</a> — Measurement infrastructure connecting
+          models, benchmarks, and edge devices.
         </figcaption>
       </figure>
 
-      <figure class="overview-panel">
+      <figure id="table-2" class="overview-panel">
         <div class="overview-table">
           <table>
             <thead>
@@ -117,8 +127,8 @@ import infrastructure from "../assets/infrastructure.png";
           </table>
         </div>
         <figcaption>
-          <strong>Table 2</strong> — Hardware used in the measurement. VTCM denotes
-          vector tightly coupled memory.
+          <a href="#table-2">Table 2</a> — Hardware used in the measurement. VTCM
+          denotes vector tightly coupled memory.
         </figcaption>
       </figure>
     </benchmark-layout>
@@ -131,7 +141,8 @@ import infrastructure from "../assets/infrastructure.png";
   }
 
   .overview-inner {
-    max-width: 112rem;
+    width: 66.6667%;
+    max-width: 74.6667rem;
     margin-inline: auto;
   }
 
@@ -198,6 +209,10 @@ import infrastructure from "../assets/infrastructure.png";
     border-bottom: 2px solid var(--color-zinc-300);
   }
 
+  tbody tr:hover td {
+    background: var(--color-zinc-50);
+  }
+
   .overview-panel:first-child table {
     min-width: 29rem;
   }
@@ -217,6 +232,11 @@ import infrastructure from "../assets/infrastructure.png";
     min-width: 0;
   }
 
+  .figure-zoom {
+    display: block;
+    width: 100%;
+  }
+
   .overview-image img {
     display: block;
     width: 100%;
@@ -234,8 +254,28 @@ import infrastructure from "../assets/infrastructure.png";
     text-wrap: pretty;
   }
 
-  figcaption strong {
+  figcaption a {
     color: var(--color-zinc-800);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  figcaption a:hover {
+    text-decoration: underline;
+  }
+
+  .overview-panel:target {
+    scroll-margin-top: 2rem;
+  }
+
+  .overview-panel:target figcaption a {
+    color: var(--color-blue-700);
+  }
+
+  @media (max-width: 60rem) {
+    .overview-inner {
+      width: 100%;
+    }
   }
 
   @media (min-width: 90rem) {
@@ -276,6 +316,10 @@ import infrastructure from "../assets/infrastructure.png";
 
     .overview-image img {
       width: 100%;
+      height: var(--media-height, auto);
+    }
+
+    .overview-image .figure-zoom {
       height: var(--media-height, auto);
     }
   }

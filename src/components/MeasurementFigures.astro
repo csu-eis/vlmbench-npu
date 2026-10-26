@@ -4,11 +4,13 @@ import throughput from "../assets/measurements/stage-npu-throughput.png";
 import thermal from "../assets/measurements/scenario-thermal.png";
 import decode from "../assets/measurements/stage-decode-throughput.png";
 
-// Figure numbers match the current Overleaf main.aux and sections/*.tex.
+// Captions follow this site's numbering; images come from Overleaf Figures 3, 4, and 13.
 const figures = [
   {
     number: 3,
     image: throughput,
+    axisLeft: 43,
+    axisSpan: 2510,
     alt: "Vision encoding, prefill, and NPU decode throughput of six VLMs on Orange Pi 5 Plus, Rhino Pi-X1, and OnePlus 13T",
     caption:
       "Vision-encoding, prefill, and decode throughput of six VLMs across three NPU stacks. Vision inputs: 224–1008 pixels per side; prefill inputs and initial decode contexts: 512–4096 tokens. Colours identify models; RKLLM and GenieX use RKNPU and Hexagon, respectively.",
@@ -16,13 +18,17 @@ const figures = [
   {
     number: 4,
     image: thermal,
+    axisLeft: 98,
+    axisSpan: 1762,
     alt: "NPU-zone and skin-zone temperature traces during multi-turn GUI interaction and video understanding on OnePlus 13T",
     caption:
       "NPU-zone and skin-zone temperatures of Qwen3.5-2B on the OnePlus 13T with GenieX during five inference turns in the MAI-UI Wi-Fi navigation task with 1080×2400 screenshots and video understanding on VideoXum with 512 frames at 224×224 and 512 output tokens. The dashed line marks a 43 °C surface-temperature reference.",
   },
   {
-    number: 13,
+    number: 5,
     image: decode,
+    axisLeft: 108,
+    axisSpan: 1773,
     alt: "CPU and NPU decode throughput of six VLMs across three edge platforms with 512–4096-token initial contexts",
     caption:
       "Decode-only throughput over 32 output tokens after text-only prefill with 512–4096-token initial contexts (linear scale).",
@@ -31,26 +37,40 @@ const figures = [
 ---
 
 <section
-  class="measurement-figures full-bleed not-prose"
+  class="measurement-figures not-prose"
   aria-label="Inference throughput and thermal measurements"
 >
   <div class="measurement-figures-inner">
     {
       figures.map((figure) => (
-        <figure id={`figure-${figure.number}`}>
-          <Image
-            src={figure.image}
-            alt={figure.alt}
-            format="webp"
-            quality={100}
-            widths={[768, 1280, 1600, figure.image.width].filter(
-              (width, index, widths) =>
-                width <= figure.image.width && widths.indexOf(width) === index,
-            )}
-            sizes="(min-width: 1648px) 1600px, calc(100vw - 48px)"
-          />
+        <figure
+          id={`figure-${figure.number}`}
+          style={`--image-scale:${(92 * figure.image.width) / figure.axisSpan}%;--image-offset:${6 - (92 * figure.axisLeft) / figure.axisSpan}%`}
+        >
+          <a
+            class="figure-zoom"
+            href={figure.image.src}
+            data-figure-zoom
+            data-figure-label={`Figure ${figure.number}`}
+            aria-label={`Enlarge Figure ${figure.number}`}
+            aria-haspopup="dialog"
+          >
+            <Image
+              src={figure.image}
+              alt={figure.alt}
+              format="webp"
+              quality={100}
+              widths={[768, 1280, figure.image.width].filter(
+                (width, index, widths) =>
+                  width <= figure.image.width &&
+                  widths.indexOf(width) === index,
+              )}
+              sizes="(min-width: 848px) 800px, calc(100vw - 48px)"
+            />
+          </a>
           <figcaption>
-            <strong>Figure {figure.number}</strong> — {figure.caption}
+            <a href={`#figure-${figure.number}`}>Figure {figure.number}</a> —{" "}
+            {figure.caption}
           </figcaption>
         </figure>
       ))
@@ -60,14 +80,14 @@ const figures = [
 
 <style>
   .measurement-figures {
-    padding: 0 var(--minimum-inline-margin) 3rem;
+    padding: 0 0 3rem;
   }
 
   .measurement-figures-inner {
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    max-width: 100rem;
+    max-width: var(--maximum-text-width);
     margin-inline: auto;
   }
 
@@ -77,11 +97,19 @@ const figures = [
     margin: 0;
   }
 
-  img {
+  .figure-zoom {
     display: block;
     width: 100%;
+    overflow: hidden;
+  }
+
+  img {
+    display: block;
+    /* All three plot areas begin at 6% and end at 98% of the column. */
+    width: var(--image-scale);
     height: auto;
-    margin: 0;
+    max-width: none;
+    margin: 0 0 0 var(--image-offset);
   }
 
   figcaption {
@@ -94,7 +122,17 @@ const figures = [
     text-wrap: pretty;
   }
 
-  figcaption strong {
+  figcaption a {
     color: var(--color-zinc-800);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  figcaption a:hover {
+    text-decoration: underline;
+  }
+
+  figure:target {
+    scroll-margin-top: 2rem;
   }
 </style>
