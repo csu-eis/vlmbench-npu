@@ -15,11 +15,6 @@ cd "$ROOT"
 # 预览端口（固定，可用环境变量覆盖）
 PORT="${VLMBENCH_PORT:-14001}"
 
-# PDD 内部镜像（node 安装器 / Prisma / Puppeteer）
-export N_NODE_MIRROR=https://maven.pdd.net/repository/taobao-nodejs/
-export NODEJS_ORG_MIRROR=https://maven.pdd.net/repository/taobao-nodejs/
-export PUPPETEER_CHROME_DOWNLOAD_BASE_URL=https://maven.pdd.net/repository/bazel-public/chrome-for-testing
-
 GREEN='\033[0;32m'; YELLOW='\033[0;33m'; RED='\033[0;31m'; NC='\033[0m'
 info()  { printf "${GREEN}==>${NC} %s\n" "$1"; }
 warn()  { printf "${YELLOW}警告:${NC} %s\n" "$1"; }
