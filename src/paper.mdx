@@ -16,25 +16,9 @@ thumbnail: screenshot-light.png
 ---
 
 import Header from "./components/Header.astro";
-import Video from "./components/Video.astro";
 import HighlightedSection from "./components/HighlightedSection.astro";
-import SmallCaps from "./components/SmallCaps.astro";
-import Figure from "./components/Figure.astro";
-import Picture from "./components/Picture.astro";
-import ModelViewer from "./components/ModelViewer.astro"
-import TwoColumns from "./components/TwoColumns.astro";
-import YouTubeVideo from "./components/YouTubeVideo.astro";
-import Carousel from "./components/Carousel.astro";
-import CarouselSlide from "./components/CarouselSlide.astro";
-import Wide from "./components/Wide.astro";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/starwind/tabs";
-import { Comparison } from "./components/Comparison.tsx";
-
-import outside from "./assets/outside.mp4";
 import BenchmarkOverview from "./components/BenchmarkOverview.astro";
-import dogsDiffc from "./assets/dogs-diffc.png"
-import dogsTrue from "./assets/dogs-true.png"
-import dogsMsillm from "@/assets/dogs-msillm.jpg"
+import MeasurementFigures from "./components/MeasurementFigures.astro";
 
 <Header
   title="How Far Are We From On-Device VLM Inference? A Measurement Study on Edge NPUs"
@@ -49,6 +33,10 @@ import dogsMsillm from "@/assets/dogs-msillm.jpg"
     { symbol: "†", text: "Corresponding author." },
   ]}
   links={[
+    // TODO: 占位链接，arXiv 上线后替换为论文页面地址
+    { name: "arXiv", url: "https://arxiv.org/", icon: "academicons:arxiv" },
+    // TODO: 占位链接，替换为 HuggingFace 模型/合集地址
+    { name: "Models", url: "https://huggingface.co/", icon: "simple-icons:huggingface" },
     { name: "Code", url: "https://github.com/csu-eis/vlmbench-npu", icon: "ri:github-line" },
   ]}
 >
@@ -71,6 +59,28 @@ Diverse optimizations spanning model architecture, inference runtime, and hardwa
 </HighlightedSection>
 
 <BenchmarkOverview />
+
+<MeasurementFigures />
+
+{/*
+Template examples retained below for reference; hidden from the project page.
+
+import Video from "./components/Video.astro";
+import SmallCaps from "./components/SmallCaps.astro";
+import Figure from "./components/Figure.astro";
+import Picture from "./components/Picture.astro";
+import ModelViewer from "./components/ModelViewer.astro"
+import TwoColumns from "./components/TwoColumns.astro";
+import YouTubeVideo from "./components/YouTubeVideo.astro";
+import Carousel from "./components/Carousel.astro";
+import CarouselSlide from "./components/CarouselSlide.astro";
+import Wide from "./components/Wide.astro";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/starwind/tabs";
+import { Comparison } from "./components/Comparison.tsx";
+import outside from "./assets/outside.mp4";
+import dogsDiffc from "./assets/dogs-diffc.png"
+import dogsTrue from "./assets/dogs-true.png"
+import dogsMsillm from "@/assets/dogs-msillm.jpg"
 
 ## Visuals
 
@@ -186,10 +196,11 @@ Add simple tables using [GitHub Flavored Markdown syntax](https://docs.github.co
 | RoBERTa-large | 0.92 | 0.91 | 7.2 |
 | DistilBERT | 0.86 | 0.84 | 2.1 |
 | XLNet | 0.90 | 0.89 | 6.8 |
+*/}
 
 ## BibTeX citation
 
-Displaying the BibTeX entry for your paper in a code block makes it easy to copy and paste.
+{/* Displaying the BibTeX entry for your paper in a code block makes it easy to copy and paste. */}
 
 ```bibtex
 @misc{vlmbench2026npu,

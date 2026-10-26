@@ -1,0 +1,100 @@
+---
+import { Image } from "astro:assets";
+import throughput from "../assets/measurements/stage-npu-throughput.png";
+import thermal from "../assets/measurements/scenario-thermal.png";
+import decode from "../assets/measurements/stage-decode-throughput.png";
+
+// Figure numbers match the current Overleaf main.aux and sections/*.tex.
+const figures = [
+  {
+    number: 3,
+    image: throughput,
+    alt: "Vision encoding, prefill, and NPU decode throughput of six VLMs on Orange Pi 5 Plus, Rhino Pi-X1, and OnePlus 13T",
+    caption:
+      "Vision-encoding, prefill, and decode throughput of six VLMs across three NPU stacks. Vision inputs: 224–1008 pixels per side; prefill inputs and initial decode contexts: 512–4096 tokens. Colours identify models; RKLLM and GenieX use RKNPU and Hexagon, respectively.",
+  },
+  {
+    number: 4,
+    image: thermal,
+    alt: "NPU-zone and skin-zone temperature traces during multi-turn GUI interaction and video understanding on OnePlus 13T",
+    caption:
+      "NPU-zone and skin-zone temperatures of Qwen3.5-2B on the OnePlus 13T with GenieX during five inference turns in the MAI-UI Wi-Fi navigation task with 1080×2400 screenshots and video understanding on VideoXum with 512 frames at 224×224 and 512 output tokens. The dashed line marks a 43 °C surface-temperature reference.",
+  },
+  {
+    number: 13,
+    image: decode,
+    alt: "CPU and NPU decode throughput of six VLMs across three edge platforms with 512–4096-token initial contexts",
+    caption:
+      "Decode-only throughput over 32 output tokens after text-only prefill with 512–4096-token initial contexts (linear scale).",
+  },
+];
+---
+
+<section
+  class="measurement-figures full-bleed not-prose"
+  aria-label="Inference throughput and thermal measurements"
+>
+  <div class="measurement-figures-inner">
+    {
+      figures.map((figure) => (
+        <figure id={`figure-${figure.number}`}>
+          <Image
+            src={figure.image}
+            alt={figure.alt}
+            format="webp"
+            quality={100}
+            widths={[768, 1280, 1600, figure.image.width].filter(
+              (width, index, widths) =>
+                width <= figure.image.width && widths.indexOf(width) === index,
+            )}
+            sizes="(min-width: 1648px) 1600px, calc(100vw - 48px)"
+          />
+          <figcaption>
+            <strong>Figure {figure.number}</strong> — {figure.caption}
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .measurement-figures {
+    padding: 0 var(--minimum-inline-margin) 3rem;
+  }
+
+  .measurement-figures-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 100rem;
+    margin-inline: auto;
+  }
+
+  figure {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  figcaption {
+    max-width: 75rem;
+    margin: 1rem auto 0;
+    color: var(--color-zinc-600);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  figcaption strong {
+    color: var(--color-zinc-800);
+  }
+</style>
