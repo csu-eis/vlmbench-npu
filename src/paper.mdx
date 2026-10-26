@@ -5,7 +5,7 @@
 title: How Far Are We From On-Device VLM Inference? A Measurement Study on Edge NPUs
 
 # The color theme of the page. Defaults to "device" (the preference set in the user's brower or operating system). Setting this to "light" or "dark" will override the user's preference. This is useful if your figures only look good in one theme.
-theme: device
+theme: light
 
 # This is the icon that appears in the user's browser tab. To customize, change the favicon.svg file in /public/, or add your own file to /public/ and change the filename here.
 favicon: favicon.svg
@@ -57,7 +57,6 @@ import dogsMsillm from "@/assets/dogs-msillm.jpg"
       <Picture slot="background" src={cover} alt="" />
       <Video slot="background" src={outside} controls={false} />
   */}
-  <Picture slot="background" src={dogsTrue} alt="" priority />
 </Header>
 
 <HighlightedSection>
@@ -172,12 +171,6 @@ $$
 \int_a^b f(x) dx
 $$
 
-## Citation
-
-If you copy your bibliography into `./bibliography.bib`, you can cite papers using their BibTeX keys, and they'll be automatically formatted and included in the bibliography section at the end. For example: [@vaswani2017attention]. Note that these citations are distinct from footnotes[^mynote], which show up in a separate section if you use them.
-
-[^mynote]: On the web, they should really be called "endnotes", since each page constitutes a full document.
-
 ## Table
 
 Add simple tables using [GitHub Flavored Markdown syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables):
@@ -201,7 +194,3 @@ Displaying the BibTeX entry for your paper in a code block makes it easy to copy
   howpublished = "\url{https://github.com/csu-eis/vlmbench-npu}",
 }
 ```
-
-## Bibliography
-
-[^ref]
