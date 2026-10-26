@@ -34,10 +34,10 @@ import MeasurementFigures from "./components/MeasurementFigures.astro";
   ]}
   links={[
     // TODO: 占位链接，arXiv 上线后替换为论文页面地址
-    { name: "arXiv", url: "https://arxiv.org/", icon: "academicons:arxiv" },
+    { name: "arXiv", url: "https://arxiv.org/", icon: "academicons:arxiv", className: "bg-[#B31B1B] text-white hover:bg-[#8f1414]" },
     // TODO: 占位链接，替换为 HuggingFace 模型/合集地址
-    { name: "Models", url: "https://huggingface.co/", icon: "simple-icons:huggingface" },
-    { name: "Code", url: "https://github.com/csu-eis/vlmbench-npu", icon: "ri:github-line" },
+    { name: "Models", url: "https://huggingface.co/", icon: "simple-icons:huggingface", className: "bg-[#FFD21E] text-zinc-900 hover:bg-[#f2c300]" },
+    { name: "Code", url: "https://github.com/csu-eis/vlmbench-npu", icon: "ri:github-line", className: "bg-zinc-800 text-white hover:bg-black" },
   ]}
 >
   {/*
