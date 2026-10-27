@@ -8,7 +8,7 @@ import infrastructure from "../assets/infrastructure.png";
   aria-labelledby="benchmark-overview-title"
 >
   <div class="overview-inner">
-    <h2 id="benchmark-overview-title">Benchmark at a glance</h2>
+    <h2 id="benchmark-overview-title">Benchmark setting</h2>
     <p class="overview-summary">
       6 vision-language models · 3 edge platforms · 10 multimodal benchmarks
     </p>
@@ -60,9 +60,15 @@ import infrastructure from "../assets/infrastructure.png";
           </table>
         </div>
         <figcaption>
-          <a href="#table-1">Table 1</a> — The six VLMs under test. Preprocessing
-          categories follow the default huggingface/transformers configuration for
-          square inputs.
+          <a href="#table-1">Table 1</a> The six VLMs under test. Preprocessing categories
+          follow the default huggingface/transformers configuration for square inputs.
+          <button
+            type="button"
+            class="table-zoom"
+            data-table-zoom="table-1"
+            aria-label="Enlarge Table 1"
+            aria-haspopup="dialog">⤢ Enlarge</button
+          >
         </figcaption>
       </figure>
 
@@ -86,8 +92,8 @@ import infrastructure from "../assets/infrastructure.png";
           </a>
         </div>
         <figcaption>
-          <a href="#figure-1">Figure 1</a> — Measurement infrastructure connecting
-          models, benchmarks, and edge devices.
+          <a href="#figure-1">Figure 1</a> Measurement infrastructure connecting models,
+          benchmarks, and edge devices.
         </figcaption>
       </figure>
 
@@ -127,8 +133,15 @@ import infrastructure from "../assets/infrastructure.png";
           </table>
         </div>
         <figcaption>
-          <a href="#table-2">Table 2</a> — Hardware used in the measurement. VTCM
-          denotes vector tightly coupled memory.
+          <a href="#table-2">Table 2</a> Hardware used in the measurement. VTCM denotes
+          vector tightly coupled memory.
+          <button
+            type="button"
+            class="table-zoom"
+            data-table-zoom="table-2"
+            aria-label="Enlarge Table 2"
+            aria-haspopup="dialog">⤢ Enlarge</button
+          >
         </figcaption>
       </figure>
     </benchmark-layout>
@@ -261,6 +274,19 @@ import infrastructure from "../assets/infrastructure.png";
   }
 
   figcaption a:hover {
+    text-decoration: underline;
+  }
+
+  .table-zoom {
+    display: inline-block;
+    margin-left: 0.45rem;
+    color: var(--color-blue-700);
+    font: inherit;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .table-zoom:hover {
     text-decoration: underline;
   }
 
